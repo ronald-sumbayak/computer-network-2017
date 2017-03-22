@@ -10,31 +10,28 @@ op = {
     "**": operator.pow
 }
 
-def isNumber (n):
-    if n.isdigit ():
-        return True
+def number (n):
     try:
         float (n)
-        return True
     except ValueError:
         return False
+    return True
 
-def parseMessage (msg):
+def parse (msg):
     msg = msg.split (" ")
     if len (msg) != 3:
         return "Invalid format!"
-    elif (msg[1] not in op or not isNumber (msg[0]) or not isNumber (msg[2])):
+    elif (msg[1] not in op or not number (msg[0]) or not number (msg[2])):
         return "Invalid format!"
-    else:
-        return str (round (op[msg[1]] (float (msg[0]), float (msg[2])), 2))
+    return str (round (op[msg[1]] (float (msg[0]), float (msg[2])), 2))
 
 def main ():
-    buffer = 1024
+    buffer = 32
     host = ""
     port = 3000
     sock = socket.socket (socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind ((host, port))
-    print ("Listening on port", str (port), "...")
+    print ("Listening on port", str (port) + "...")
 
     while True:
         msg, client = sock.recvfrom (buffer)
@@ -43,15 +40,16 @@ def main ():
         if msg.lower () == "exit":
             break
 
-        print ("Receives message from:", client[0])
-        print ("Received message     :", msg)
+        print ("Receives message from", client[0])
+        print ("Received message:", msg)
 
-        result = parseMessage (msg)
-        print ("Returning            :", result, "\n")
+        result = parse (msg)
+        print ("Returning       :", result, "\n")
 
         sock.sendto (result.encode (), client)
         print ("Waiting for another connection...")
 
+    sock.close ()
     print ("Program terminated.")
 
 if __name__ == "__main__":
