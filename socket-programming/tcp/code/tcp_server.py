@@ -1,6 +1,5 @@
 import operator
 import socket
-import sys
 
 op = {
     "+":  operator.add,

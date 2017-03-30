@@ -31,7 +31,7 @@ def main ():
     port = 3000
     sock = socket.socket (socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind ((host, port))
-    print ("Listening on port", str (port) + "...")
+    print ("Listening on port", str (port) + "...\n")
 
     while True:
         msg, client = sock.recvfrom (buffer)

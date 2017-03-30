@@ -6,7 +6,7 @@ def main ():
     port = 3000
     sock = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
     sock.connect ((host, port))
-    print ("Connected to", host, "on port", str (port) + "\n")
+    print ("Connected to", host, "on port", str (port))
     print ("Format: [$number] [$operator] [$number]. Send 'exit' to stop program on client and server.\n")
 
     while True:
